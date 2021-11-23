@@ -22,7 +22,7 @@
     };
     initrd.luks.devices = {
       crypt = {
-        device = "/dev/vda2";
+        device = "/dev/sda2";
         preLVM = true;
       };
     };
@@ -40,7 +40,7 @@
     };
   };
 
-  time.timeZone = "Asia/Singapore";
+  time.timeZone = "Europe/Berlin";
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -85,30 +85,22 @@
     };
   };
 
-  virtualisation = {
-    docker = {
-      enable = true;
-      autoPrune.enable = true;
-      enableOnBoot = true;
-    };
-  };
-
   security = {
     sudo = {
       enable = true;
-      wheelNeedsPassword = false;
+      wheelNeedsPassword = true;
     };
   };
 
   users = {
     mutableUsers = false;
-    users.mudrii = {
+    users.nixu = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [ "wheel" ];
       shell = pkgs.fish;
       # mkpasswd -m sha-512 password
-      hashedPassword = "$6$ewXNcoQRNG$czTic9vE8CGH.eo4mabZsHVRdmTjtJF4SdDnIK0O/4STgzB5T2nD3Co.dRpVS3/uDD24YUxWrTDy2KRv7m/3N1";
-      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8/tE2+oIwLnCnfzPSTqiZaeW++wUPNW5fOi124eGzWfcnOQGrjuwir3sZDKMS9DLqSTDNtvJ3/EZf6z/MLN/uxUE8lA+aKaSs0yopE7csQ89Aqkvp5fvCpz3BJuZgpxtwebPZyTc7QRGQWE4lM3fix3aJhfj827bdxA+sCiq8OnNiwYSXrIag1cQigafhLy6tYtCKdWcxzJq2ebGJF2wu2LU0zArb1SAOanhEOXxz0dG1I/7yMDBDC92R287nWpL+BwxuQcDv0xh/sWnViKixKv+B9ewJnz98iQPcg3WmYWe9BYAcaqkbgMqbwfUPqOHhFXmiQWUpOjsni2O6VoiN mudrii@nixos" ];
+      hashedPassword = "$6$38PqmLBdunfB3D/Q$gukkC.UsRfCOrOe0ulEisCQhUkiuJsOwbPjwGOIDYfCAKcigJ8SFOiJIgxpt/q11mWlPeW8bX4aRAJQF10kdP1";
+      openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEibeHYufNMwEcpXtSHXTbEvmW8Mla1v1W8YS/gacfbA tom1@xps-15" ];
       packages = with pkgs; [
         python39Full
       ];
@@ -134,22 +126,9 @@
       google-cloud-sdk-gce
       git
       gh
-      pulumi-bin
       #unstable.pulumi-bin
       inotify-tools
       nodejs
-      kubernetes
-      kubernetes-helm
-      kubeseal
-      helmfile
-      helmsman
-      unstable.kind
-      unstable.kube3d
-      argo
-      argocd
-      kustomize
-      k9s
-      kubectx
       binutils
       gnutls
       wget
