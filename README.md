@@ -5,27 +5,29 @@
 ## Prep Disk
 
 ```sh
+sudo -i
+
 lsblk
 
-wipefs -a /dev/vda
+wipefs -a /dev/sda
 ```
 
 ## Diff install Optional
 
 ```sh
-export ROOT_DISK=/dev/vda
+export ROOT_DISK=/dev/sda
 
 # Create boot partition first
 parted -a opt --script "${ROOT_DISK}" \
     mklabel gpt \
-    mkpart primary fat32 0% 512MiB \
-    mkpart primary 512MiB 100% \
+    mkpart primary fat32 0% 1GB \
+    mkpart primary 1GB 100% \
     set 1 esp on \
     name 1 boot \
     set 2 lvm on \
     name 2 root
 
-fdisk /dev/vda -l
+fdisk /dev/sda -l
 ```
 
 ## Encrypt Primary Disk
